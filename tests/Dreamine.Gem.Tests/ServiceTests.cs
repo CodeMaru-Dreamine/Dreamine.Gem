@@ -154,6 +154,32 @@ public sealed class ServiceTests
     }
 
     [Fact]
+    public async Task RemoteCommandReceivesStableReadOnlyParameterSnapshot()
+    {
+        var entered = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        var release = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        IReadOnlyDictionary<string, SecsItem>? observed = null;
+        var service = new GemRemoteCommandService();
+        service.Register(new GemRemoteCommandDefinition("START", ["LOT"]), async (parameters, cancellationToken) =>
+        {
+            entered.TrySetResult();
+            await release.Task.WaitAsync(cancellationToken);
+            observed = parameters;
+            return new GemCommandResult(GemCommandStatus.Completed);
+        });
+        var callerOwned = new Dictionary<string, SecsItem>(StringComparer.Ordinal) { ["LOT"] = new SecsAsciiItem("A") };
+
+        var execution = service.ExecuteAsync("START", callerOwned, TimeSpan.FromSeconds(5)).AsTask();
+        await entered.Task;
+        callerOwned["LOT"] = new SecsAsciiItem("B");
+        release.TrySetResult();
+
+        Assert.Equal(GemCommandStatus.Completed, (await execution).Status);
+        Assert.Equal("A", Assert.IsType<SecsAsciiItem>(observed!["LOT"]).Value);
+        Assert.Throws<NotSupportedException>(() => ((IDictionary<string, SecsItem>)observed).Add("EXTRA", new SecsAsciiItem("X")));
+    }
+
+    [Fact]
     public void ProcessProgramStoreCopiesOnPutAndGet()
     {
         var service = new GemProcessProgramService(); byte[] body = [1, 2]; service.Put(new("P1", body)); body[0] = 8;
@@ -183,6 +209,43 @@ public sealed class ServiceTests
         var spool = new GemSpoolService(2); spool.Start(); spool.Enqueue(Message(1));
         await Assert.ThrowsAsync<InvalidOperationException>(() => spool.DrainAsync((_, _) => throw new InvalidOperationException("send")));
         Assert.Equal(1, spool.Count); Assert.Equal(GemSpoolState.Spooling, spool.State);
+    }
+
+    [Fact]
+    public async Task SpoolCallbackMayPurgeReentrantlyWithoutCorruptingQueue()
+    {
+        var service = new GemSpoolService(2);
+        service.Start();
+        service.Enqueue(Message(1));
+
+        await service.DrainAsync((_, _) =>
+        {
+            service.Purge();
+            return Task.CompletedTask;
+        });
+
+        Assert.Equal(0, service.Count);
+        Assert.Equal(GemSpoolState.Disabled, service.State);
+    }
+
+    [Fact]
+    public async Task RequeuedSameMessageInstanceIsNotMistakenForDeliveredEntry()
+    {
+        var service = new GemSpoolService(2);
+        var message = Message(1);
+        service.Start();
+        service.Enqueue(message);
+
+        await service.DrainAsync((_, _) =>
+        {
+            service.Purge();
+            service.Start();
+            service.Enqueue(message);
+            return Task.CompletedTask;
+        });
+
+        Assert.Equal(1, service.Count);
+        Assert.Equal(GemSpoolState.Spooling, service.State);
     }
 
     private static SecsMessage Message(uint systemBytes) => new(new(1), new(6), new(11), false, new(systemBytes));

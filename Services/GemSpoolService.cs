@@ -8,7 +8,7 @@ namespace Dreamine.Gem.Services;
 public sealed class GemSpoolService : IGemSpoolService
 {
     private readonly object _gate = new();
-    private readonly Queue<SecsMessage> _messages = new();
+    private readonly Queue<SpoolEntry> _messages = new();
     private readonly int _capacity;
     private GemSpoolState _state;
     /// <summary>\if KO 양의 용량으로 스풀을 만듭니다. \endif \if EN Creates a spool with positive capacity. \endif</summary>
@@ -31,7 +31,7 @@ public sealed class GemSpoolService : IGemSpoolService
             if (_state != GemSpoolState.Spooling) return false;
             var overwritten = _messages.Count == _capacity;
             if (overwritten) _messages.Dequeue();
-            _messages.Enqueue(message); return overwritten;
+            _messages.Enqueue(new(message)); return overwritten;
         }
     }
     /// <inheritdoc />
@@ -43,14 +43,19 @@ public sealed class GemSpoolService : IGemSpoolService
         {
             while (true)
             {
-                SecsMessage message;
-                lock (_gate) { if (_messages.Count == 0) break; message = _messages.Peek(); }
-                await sender(message, cancellationToken).ConfigureAwait(false);
-                lock (_gate) _messages.Dequeue();
+                SpoolEntry pending;
+                lock (_gate) { if (_messages.Count == 0) break; pending = _messages.Peek(); }
+                await sender(pending.Message, cancellationToken).ConfigureAwait(false);
+                lock (_gate)
+                {
+                    if (_messages.Count == 0 || !ReferenceEquals(_messages.Peek(), pending)) break;
+                    _messages.Dequeue();
+                }
             }
         }
         finally { lock (_gate) _state = _messages.Count == 0 ? GemSpoolState.Disabled : GemSpoolState.Spooling; }
     }
     /// <inheritdoc />
     public void Purge() { lock (_gate) { _messages.Clear(); _state = GemSpoolState.Disabled; } }
+    private sealed record SpoolEntry(SecsMessage Message);
 }

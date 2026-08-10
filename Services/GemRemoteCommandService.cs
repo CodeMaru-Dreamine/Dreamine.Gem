@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Collections.ObjectModel;
 using Dreamine.Gem.Abstractions.Interfaces;
 using Dreamine.Gem.Abstractions.Model;
 using Dreamine.Gem.Abstractions.States;
@@ -33,9 +34,10 @@ public sealed class GemRemoteCommandService : IGemRemoteCommandService
         if (!_entries.TryGetValue(name, out var entry)) return new(GemCommandStatus.NotAllowed, "Unknown command.");
         if (entry.Definition.Parameters.Any(parameter => !parameters.ContainsKey(parameter))) return new(GemCommandStatus.InvalidParameter, "A required parameter is missing.");
         if (parameters.Keys.Any(parameter => !entry.Definition.Parameters.Contains(parameter, StringComparer.Ordinal))) return new(GemCommandStatus.InvalidParameter, "An unknown parameter was supplied.");
+        var parameterSnapshot = new ReadOnlyDictionary<string, SecsItem>(new Dictionary<string, SecsItem>(parameters, StringComparer.Ordinal));
         try
         {
-            return await entry.Handler(parameters, cancellationToken).AsTask().WaitAsync(timeout, _timeProvider, cancellationToken).ConfigureAwait(false)
+            return await entry.Handler(parameterSnapshot, cancellationToken).AsTask().WaitAsync(timeout, _timeProvider, cancellationToken).ConfigureAwait(false)
                 ?? new(GemCommandStatus.Failed, "The command handler returned no result.");
         }
         catch (TimeoutException) { return new(GemCommandStatus.Failed, "The command timed out."); }
