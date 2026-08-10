@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <AssemblyName>Dreamine.Gem</AssemblyName><RootNamespace>Dreamine.Gem</RootNamespace>
+    <PackageId>Dreamine.Gem</PackageId><Version>1.0.0</Version><Authors>Dreamine Core Team</Authors><Company>Dreamine</Company>
+    <Description>Dreamine implementation boundary for future GEM behavior models.</Description>
+    <PackageTags>dreamine;gem;secs;runtime;equipment</PackageTags><PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/CodeMaru-Dreamine/Dreamine.Gem</RepositoryUrl><Title>Dreamine.Gem</Title>
+    <Copyright>© 2026 Dreamine Core Team. All rights reserved.</Copyright>
+    <PackageProjectUrl>https://github.com/CodeMaru-Dreamine/Dreamine.Gem</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile><PackageIcon>icon.png</PackageIcon>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild><GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup><None Include="README.md" Pack="true" PackagePath="\" /><None Include="icon.png" Pack="true" PackagePath="\" /></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gem.Abstractions\Dreamine.Gem.Abstractions.csproj" />
+    <ProjectReference Include="..\Secs.Abstractions\Dreamine.Secs.Abstractions.csproj" />
+    <ProjectReference Include="..\Secs.Com\Dreamine.Secs.Com.csproj" />
+  </ItemGroup>
+</Project>

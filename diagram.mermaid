@@ -1,0 +1,5 @@
+flowchart LR
+    Runtime["Dreamine.Gem"] --> Contracts["Dreamine.Gem.Abstractions"]
+    Runtime --> SecsContracts["Dreamine.Secs.Abstractions"]
+    Runtime --> SecsCom["Dreamine.Secs.Com"]
+    SecsCom --> SecsContracts
