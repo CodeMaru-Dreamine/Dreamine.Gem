@@ -7,6 +7,7 @@ using Dreamine.Gem.StateMachines;
 using Dreamine.Gem.Transport;
 using Dreamine.Secs.Abstractions.Enums;
 using Dreamine.Secs.Abstractions.Hsms;
+using Dreamine.Secs.Abstractions.Interfaces;
 using Dreamine.Secs.Abstractions.Model;
 using Dreamine.Secs.Com.Hsms;
 using Xunit;
@@ -25,7 +26,8 @@ public sealed class GemHsmsLoopbackTests
         await ConnectPairAsync(equipmentSession, hostSession, timeout.Token);
         await hostSession.SelectAsync(timeout.Token);
 
-        var equipmentTransport = new HsmsGemTransport(equipmentSession, new(1));
+        ISecsMessageSession equipmentMessageSession = equipmentSession;
+        var equipmentTransport = new HsmsGemTransport(equipmentMessageSession);
         var hostTransport = new HsmsGemTransport(hostSession, new(1));
         var communication = new GemCommunicationStateMachine(); communication.Enable(equipmentInitiated: false);
         var engine = new GemProtocolEngine(equipmentTransport, communication, new GemEquipmentIdentity("MODEL", "REV"), retryDelay: TimeSpan.Zero);

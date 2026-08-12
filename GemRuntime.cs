@@ -1,6 +1,7 @@
 using Dreamine.Gem.Abstractions.Interfaces;
 using Dreamine.Gem.Abstractions.Model;
 using Dreamine.Gem.Protocol;
+using Dreamine.Gem.Profiles;
 using Dreamine.Gem.Services;
 using Dreamine.Gem.StateMachines;
 using Dreamine.Secs.Abstractions.Interfaces;
@@ -23,6 +24,8 @@ public sealed class GemRuntime : IGemRuntime
     public ISecsConnection SecsConnection => Transport.Connection;
     /// <summary>\if KO GEM 메시지 전송 경계입니다. \endif \if EN Gets the GEM message transport. \endif</summary>
     public IGemMessageTransport Transport { get; }
+    /// <summary>\if KO 이 런타임을 구성한 frozen 장비 프로필입니다. 기존 생성자로 만든 런타임은 null입니다. \endif \if EN Gets the frozen equipment profile that configured this runtime; null for runtimes created by the legacy constructor. \endif</summary>
+    public GemEquipmentProfile? Profile { get; private set; }
     /// <summary>\if KO 통신 상태 모델입니다. \endif \if EN Gets the communication state model. \endif</summary>
     public GemCommunicationStateMachine Communication { get; }
     /// <summary>\if KO 제어 상태 모델입니다. \endif \if EN Gets the control state model. \endif</summary>
@@ -47,4 +50,12 @@ public sealed class GemRuntime : IGemRuntime
     public GemSpoolService Spool { get; }
     /// <summary>\if KO 지원되는 S1 시나리오 엔진입니다. \endif \if EN Gets the supported S1 scenario engine. \endif</summary>
     public GemProtocolEngine Protocol { get; }
+
+    internal void ApplyProfile(GemEquipmentProfile profile)
+    {
+        ArgumentNullException.ThrowIfNull(profile);
+        if (Profile is not null) throw new InvalidOperationException("A GEM profile is already applied.");
+        Profile = profile;
+        profile.Configure(this);
+    }
 }
