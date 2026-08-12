@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
     <AssemblyName>Dreamine.Gem</AssemblyName><RootNamespace>Dreamine.Gem</RootNamespace>
     <PackageId>Dreamine.Gem</PackageId><Version>1.0.0</Version><Authors>Dreamine Core Team</Authors><Company>Dreamine</Company>
-    <Description>Dreamine implementation boundary for future GEM behavior models.</Description>
+    <Description>Dreamine GEM runtime with typed equipment profiles and an E30-0611 derived interoperability subset.</Description>
     <PackageTags>dreamine;gem;secs;runtime;equipment</PackageTags><PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/CodeMaru-Dreamine/Dreamine.Gem</RepositoryUrl><Title>Dreamine.Gem</Title>
     <Copyright>© 2026 Dreamine Core Team. All rights reserved.</Copyright>
