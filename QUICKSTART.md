@@ -3,13 +3,15 @@
 `Dreamine.Gem.QuickStart` runs the public generic Demo profile as two separate
 processes over actual TCP/HSMS. Start Equipment first, then Host.
 
+The checked-in sample references the published `Dreamine.Gem` package by default, so it runs from a standalone clone. Add `-p:UseLocalDreamineSources=true` to both commands only when validating the canonical full source workspace.
+
 The exact frozen scope label is `E30-0611 derived subset profile v1`. This is a
 local executable example, not current-revision conformance or external
 interoperability evidence.
 
 ## 1. Start the passive Equipment process
 
-From the `Dreamine.Gem` repository root:
+From a standalone `Dreamine.Gem` repository clone:
 
 ```powershell
 dotnet run --project samples/Dreamine.Gem.QuickStart -- `
@@ -79,8 +81,8 @@ remain `INTENTIONALLY_EXCLUDED` from frozen v1.
 
 The Workbench can select the same public Demo profile. Its alternative
 educational fallback is Demo-only, not GEM, and is mutually exclusive with the
-E30 router. See the [Workbench README](../../998.%20DEMO/000.%20Sample/010.%20Wpfs/Dreamine.SecsGem.Interop.Wpf/README.md).
+E30 router. See the [Workbench README](https://github.com/CodeMaru-Dreamine/Dreamine.MVVM.FullKit/blob/main/20_SOURCES/998.%20DEMO/000.%20Sample/010.%20Wpfs/Dreamine.SecsGem.Interop.Wpf/README.md).
 
-For composition details, return to the [main README](README.md). For normative
+For composition details, return to the [main README](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/README.md). For normative
 disposition and evidence separation, see the
 [requirements trace](docs/SEMI_REQUIREMENTS_TRACE.md).

@@ -1,9 +1,20 @@
 # Dreamine.Gem
 
+[![CI](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/actions/workflows/ci.yml/badge.svg)](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/actions/workflows/ci.yml)
+[![품질 게이트](https://sonarcloud.io/api/project_badges/measure?project=CodeMaru-Dreamine_Dreamine.Gem&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=CodeMaru-Dreamine_Dreamine.Gem) [![보안 등급](https://sonarcloud.io/api/project_badges/measure?project=CodeMaru-Dreamine_Dreamine.Gem&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=CodeMaru-Dreamine_Dreamine.Gem) [![테스트 커버리지](https://sonarcloud.io/api/project_badges/measure?project=CodeMaru-Dreamine_Dreamine.Gem&metric=coverage)](https://sonarcloud.io/summary/new_code?id=CodeMaru-Dreamine_Dreamine.Gem)
+
 Dreamine.Gem은 Dreamine SECS-II/HSMS Stack 위에 만든 Code-first GEM
 Equipment/Host 구현 Surface입니다.
 
-[➡️ English Version](README.md)
+[➡️ English Version](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/README.md)
+
+## 설치와 시작
+
+```powershell
+dotnet add package Dreamine.Gem
+```
+
+Dreamine SECS-II/HSMS Runtime 위에서 Typed GEM Host/Equipment Service가 필요할 때 선택합니다. Equipment와 Host를 별도 Process로 실행하는 [Package-first QuickStart](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/QUICKSTART_KO.md)부터 시작하고, Full Source Workspace를 검증할 때만 `-p:UseLocalDreamineSources=true`를 사용하십시오.
 
 ## 상태 경계
 
@@ -82,7 +93,7 @@ var result = await host.ReadStatusAsync(
 ```
 
 Session 연결, Select, Dispatcher 수명, 연결 해제는 Application 책임입니다. 별도
-Process 명령은 [빠른 시작](QUICKSTART_KO.md)을 참고하십시오.
+Process 명령은 [빠른 시작](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/QUICKSTART_KO.md)을 참고하십시오.
 
 ## WPF Demo 선택
 
@@ -90,7 +101,7 @@ Process 명령은 [빠른 시작](QUICKSTART_KO.md)을 참고하십시오.
 `E30DemoEquipmentProfile.Create()`와 `E30EquipmentRouter`를 사용합니다. 대안
 **Educational basic responder (Demo-only, not GEM)**은 일곱 Pair 교육용
 Fallback입니다. 선택은 상호 배타적이므로 고정 Router와 Fallback Responder가 동시에
-등록되지 않습니다. [Workbench README](../../998.%20DEMO/000.%20Sample/010.%20Wpfs/Dreamine.SecsGem.Interop.Wpf/README_KO.md)를 참고하십시오.
+등록되지 않습니다. [Workbench README](https://github.com/CodeMaru-Dreamine/Dreamine.MVVM.FullKit/blob/main/20_SOURCES/998.%20DEMO/000.%20Sample/010.%20Wpfs/Dreamine.SecsGem.Interop.Wpf/README_KO.md)를 참고하십시오.
 
 ## 명시적 제외와 차단된 의미
 
@@ -104,8 +115,8 @@ Fallback입니다. 선택은 상호 배타적이므로 고정 Router와 Fallback
   Program Wire Service, S10 Terminal Service, Material Handling, Enhanced
   Remote Command는 `INTENTIONALLY_EXCLUDED`입니다.
 
-[알려진 제한](KNOWN_LIMITATIONS.md), [요구사항 추적표](docs/SEMI_REQUIREMENTS_TRACE.md),
-[공개 API Review](docs/API_REVIEW.md)를 참고하십시오.
+[알려진 제한](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/KNOWN_LIMITATIONS.md), [요구사항 추적표](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/docs/SEMI_REQUIREMENTS_TRACE.md),
+[공개 API Review](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/docs/API_REVIEW.md)를 참고하십시오.
 
 ## 라이선스
 
