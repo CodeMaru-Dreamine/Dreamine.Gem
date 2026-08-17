@@ -201,7 +201,7 @@ public sealed class E30EquipmentRouter : IAsyncDisposable
         foreach (var registration in _registrations) registration.Dispose();
         _commands.Writer.TryComplete();
         _lifetime.Cancel();
-        try { await _commandWorker.WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(false); }
+        try { await _commandWorker.WaitAsync(TimeSpan.FromSeconds(5), CancellationToken.None).ConfigureAwait(false); }
         catch (OperationCanceledException) { }
         finally { _lifetime.Dispose(); }
     }

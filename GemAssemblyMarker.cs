@@ -10,5 +10,6 @@ namespace Dreamine.Gem;
 /// </summary>
 public sealed class GemAssemblyMarker
 {
-    private GemAssemblyMarker() { }
+    /// <summary>\if KO GEM 어셈블리 표식을 만듭니다. \endif \if EN Creates a GEM assembly marker. \endif</summary>
+    public GemAssemblyMarker() { }
 }
