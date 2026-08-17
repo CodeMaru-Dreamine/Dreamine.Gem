@@ -3,12 +3,14 @@
 `Dreamine.Gem.QuickStart`는 공개 범용 Demo Profile을 실제 TCP/HSMS의 별도 두
 Process로 실행합니다. Equipment를 먼저 시작하고 Host를 실행하십시오.
 
+저장소의 샘플은 기본적으로 공개 `Dreamine.Gem` 패키지를 참조하므로 독립 Clone에서 실행됩니다. Canonical Full Source Workspace를 검증할 때만 두 명령에 `-p:UseLocalDreamineSources=true`를 추가하십시오.
+
 정확한 고정 범위 Label은 `E30-0611 derived subset profile v1`입니다. 로컬 실행
 예제이며 최신 Revision 적합성이나 외부 상호운용 Evidence가 아닙니다.
 
 ## 1. Passive Equipment Process 시작
 
-`Dreamine.Gem` Repository Root에서 실행합니다.
+독립 `Dreamine.Gem` Repository Clone에서 실행합니다.
 
 ```powershell
 dotnet run --project samples/Dreamine.Gem.QuickStart -- `
@@ -76,7 +78,7 @@ S1F13/F14를 별도로 공개합니다. 모든 Manifest Entry가 양방향 구�
 
 Workbench에서 같은 공개 Demo Profile을 선택할 수 있습니다. 대안 교육용 Fallback은
 Demo-only이며 GEM이 아니고 E30 Router와 상호 배타적입니다.
-[Workbench README](../../998.%20DEMO/000.%20Sample/010.%20Wpfs/Dreamine.SecsGem.Interop.Wpf/README_KO.md)를 참고하십시오.
+[Workbench README](https://github.com/CodeMaru-Dreamine/Dreamine.MVVM.FullKit/blob/main/20_SOURCES/998.%20DEMO/000.%20Sample/010.%20Wpfs/Dreamine.SecsGem.Interop.Wpf/README_KO.md)를 참고하십시오.
 
-조립 방식은 [기본 README](README_KO.md), Normative 판정과 Evidence 분리는
+조립 방식은 [기본 README](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/README_KO.md), Normative 판정과 Evidence 분리는
 [요구사항 추적표](docs/SEMI_REQUIREMENTS_TRACE.md)를 참고하십시오.

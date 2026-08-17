@@ -1,9 +1,20 @@
 # Dreamine.Gem
 
+[![CI](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/actions/workflows/ci.yml/badge.svg)](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/actions/workflows/ci.yml)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=CodeMaru-Dreamine_Dreamine.Gem&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=CodeMaru-Dreamine_Dreamine.Gem) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=CodeMaru-Dreamine_Dreamine.Gem&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=CodeMaru-Dreamine_Dreamine.Gem) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=CodeMaru-Dreamine_Dreamine.Gem&metric=coverage)](https://sonarcloud.io/summary/new_code?id=CodeMaru-Dreamine_Dreamine.Gem)
+
 Dreamine.Gem is a code-first GEM equipment/host implementation surface built
 on the Dreamine SECS-II/HSMS stack.
 
-[➡️ 한국어 문서 보기](README_KO.md)
+[➡️ 한국어 문서 보기](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/README_KO.md)
+
+## Install and start
+
+```powershell
+dotnet add package Dreamine.Gem
+```
+
+Choose this package when an application needs typed GEM host/equipment services on top of the Dreamine SECS-II/HSMS runtime. Run the [package-first QuickStart](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/QUICKSTART.md) as separate Equipment and Host processes; use `-p:UseLocalDreamineSources=true` only when validating a full source workspace.
 
 ## Status boundary
 
@@ -82,7 +93,7 @@ var result = await host.ReadStatusAsync(
 ```
 
 Session connection, Select, dispatcher lifetime, and disconnection remain the
-application's responsibility. See [Quick start](QUICKSTART.md) for the two-
+application's responsibility. See [Quick start](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/QUICKSTART.md) for the two-
 process command lines.
 
 ## WPF Demo selection
@@ -92,7 +103,7 @@ The public WPF Workbench defaults to **E30-0611 derived subset profile v1
 `E30EquipmentRouter`. Its alternative **Educational basic responder
 (Demo-only, not GEM)** is a seven-pair teaching fallback. Selection is mutually
 exclusive: the frozen router and the fallback responder are never registered
-at the same time. See the [Workbench README](../../998.%20DEMO/000.%20Sample/010.%20Wpfs/Dreamine.SecsGem.Interop.Wpf/README.md).
+at the same time. See the [Workbench README](https://github.com/CodeMaru-Dreamine/Dreamine.MVVM.FullKit/blob/main/20_SOURCES/998.%20DEMO/000.%20Sample/010.%20Wpfs/Dreamine.SecsGem.Interop.Wpf/README.md).
 
 ## Explicit exclusions and blocked semantics
 
@@ -106,9 +117,9 @@ at the same time. See the [Workbench README](../../998.%20DEMO/000.%20Sample/010
   program wire services, S10 terminal services, material handling, and enhanced
   remote command are `INTENTIONALLY_EXCLUDED`.
 
-See [Known limitations](KNOWN_LIMITATIONS.md), the
-[requirements trace](docs/SEMI_REQUIREMENTS_TRACE.md), and the
-[public API review](docs/API_REVIEW.md).
+See [Known limitations](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/KNOWN_LIMITATIONS.md), the
+[requirements trace](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/docs/SEMI_REQUIREMENTS_TRACE.md), and the
+[public API review](https://github.com/CodeMaru-Dreamine/Dreamine.Gem/blob/main/docs/API_REVIEW.md).
 
 ## License
 
